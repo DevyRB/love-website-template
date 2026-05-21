@@ -29,6 +29,12 @@ body {
     z-index: 1;
 }
 
+#scrollProgress {
+    position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+    background: linear-gradient(90deg, #ff6b9d, #ffd700);
+    z-index: 999; transition: width 0.1s;
+}
+
 .music-btn {
     position: fixed;
     top: 20px;
@@ -377,6 +383,7 @@ body {
 </head>
 <body>
 
+<div id="scrollProgress"></div>
 <button class="music-btn" id="musicBtn" onclick="toggleMusic()">♫</button>
 <audio id="bgMusic" loop src="bgmusic.mp3"></audio>
 
@@ -650,6 +657,11 @@ function toggleMusic() {
     }
     isPlaying = !isPlaying;
 }
+
+window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    document.getElementById('scrollProgress').style.width = (window.scrollY / h * 100) + '%';
+});
 
 window.addEventListener('load', () => {
     audio.play().then(() => {
