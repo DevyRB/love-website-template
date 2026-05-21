@@ -401,23 +401,6 @@ body {
     </div>
 </section>
 
-<!-- ===== ส่วนที่ 2: นับถอยหลัง ===== -->
-<section class="section countdown-section" id="countdown">
-    <!-- ลูกค้าสามารถเปลี่ยนเป็นชื่อวันสำคัญ เช่น "นับถอยหลังสู่วันแต่งงาน" -->
-    <h2 class="countdown-title reveal">❤️ นับถอยหลังสู่วันสำคัญ ❤️</h2>
-    <div class="countdown-grid">
-        <div class="countdown-item reveal"><div class="countdown-number" id="days">00</div><div class="countdown-label">วัน</div></div>
-        <div class="countdown-item reveal"><div class="countdown-number" id="hours">00</div><div class="countdown-label">ชั่วโมง</div></div>
-        <div class="countdown-item reveal"><div class="countdown-number" id="minutes">00</div><div class="countdown-label">นาที</div></div>
-        <div class="countdown-item reveal"><div class="countdown-number" id="seconds">00</div><div class="countdown-label">วินาที</div></div>
-    </div>
-    <!-- ตัวเลขนับจำนวนวันทั้งหมด (เช่น จำนวนวันที่คบกัน) -->
-    <div class="countdown-item reveal" style="margin-top:30px;display:inline-block;padding:20px 40px">
-        <div class="countdown-number" id="totalDays" style="font-size:2.5rem">365 วัน</div>
-        <div class="countdown-label">วันที่เราได้ใช้ร่วมกัน</div>
-    </div>
-</section>
-
 <!-- ===== ส่วนที่ 3: ข้อความพิมพ์ดีด (Typewriter) ===== -->
 <section class="section" id="message">
     <div class="message-section">
@@ -453,6 +436,21 @@ body {
     </div>
 </section>
 
+<!-- ===== ส่วนที่ 2: นับถอยหลัง ===== -->
+<section class="section countdown-section" id="countdown">
+    <h2 class="countdown-title reveal">❤️ นับถอยหลังสู่วันสำคัญ ❤️</h2>
+    <div class="countdown-grid">
+        <div class="countdown-item reveal"><div class="countdown-number" id="days">00</div><div class="countdown-label">วัน</div></div>
+        <div class="countdown-item reveal"><div class="countdown-number" id="hours">00</div><div class="countdown-label">ชั่วโมง</div></div>
+        <div class="countdown-item reveal"><div class="countdown-number" id="minutes">00</div><div class="countdown-label">นาที</div></div>
+        <div class="countdown-item reveal"><div class="countdown-number" id="seconds">00</div><div class="countdown-label">วินาที</div></div>
+    </div>
+    <div class="countdown-item reveal" style="margin-top:30px;display:inline-block;padding:20px 40px">
+        <div class="countdown-number" id="totalDays" style="font-size:2.5rem">365 วัน</div>
+        <div class="countdown-label">วันที่เราอยู่ด้วยกันมา</div>
+    </div>
+</section>
+
 <!-- Lightbox สำหรับดูรูปภาพขนาดใหญ่ -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <button class="lightbox-close" onclick="closeLightbox()">✕</button>
@@ -460,9 +458,6 @@ body {
 </div>
 
 <div class="footer" style="z-index:2;position:relative">
-    <div style="margin-bottom:20px;font-size:0.9rem;letter-spacing:2px;color:rgba(255,255,255,0.4)">
-        ⏳ <span id="bottomDays">00</span> วัน <span id="bottomHours">00</span> ชม. <span id="bottomMinutes">00</span> น. <span id="bottomSeconds">00</span> ว.
-    </div>
     made with <span>♥</span> from my heart to yours
 </div>
 
@@ -598,10 +593,7 @@ function setCountdown() {
         document.getElementById('hours').textContent = h;
         document.getElementById('minutes').textContent = m;
         document.getElementById('seconds').textContent = s;
-        document.getElementById('bottomDays').textContent = d;
-        document.getElementById('bottomHours').textContent = h;
-        document.getElementById('bottomMinutes').textContent = m;
-        document.getElementById('bottomSeconds').textContent = s;
+
     }
     update();
     setInterval(update, 1000);
