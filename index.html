@@ -19,6 +19,16 @@ body {
 }
 
 
+#heartsCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
 .music-btn {
     position: fixed;
     top: 20px;
@@ -371,6 +381,7 @@ body {
 <audio id="bgMusic" loop src="bgmusic.mp3"></audio>
 
 
+<canvas id="heartsCanvas"></canvas>
 <canvas id="fireworksCanvas"></canvas>
 
 <!-- ===== ส่วนที่ 1: Hero / ส่วนหัว ===== -->
@@ -453,6 +464,64 @@ body {
 </div>
 
 <script>
+
+const hCanvas = document.getElementById('heartsCanvas');
+const hCtx = hCanvas.getContext('2d');
+let hearts = [];
+
+function resizeHearts() {
+    hCanvas.width = window.innerWidth;
+    hCanvas.height = window.innerHeight;
+}
+resizeHearts();
+window.addEventListener('resize', resizeHearts);
+
+class Heart {
+    constructor() { this.reset(); }
+    reset() {
+        this.x = Math.random() * hCanvas.width;
+        this.y = hCanvas.height + 50;
+        this.size = Math.random() * 18 + 12;
+        this.speed = Math.random() * 1.5 + 0.5;
+        this.wobble = Math.random() * 1.5;
+        this.wobbleSpeed = Math.random() * 0.02 + 0.01;
+        this.phase = Math.random() * Math.PI * 2;
+        this.opacity = Math.random() * 0.4 + 0.2;
+        this.color = ['#ff6b9d', '#ffd1e8', '#ff8fab'][Math.floor(Math.random() * 3)];
+    }
+    update() {
+        this.y -= this.speed;
+        this.x += Math.sin(this.phase) * this.wobble;
+        this.phase += this.wobbleSpeed;
+        if (this.y < -50) this.reset();
+    }
+    draw() {
+        hCtx.save();
+        hCtx.globalAlpha = this.opacity;
+        hCtx.translate(this.x, this.y);
+        hCtx.scale(this.size / 20, this.size / 20);
+        hCtx.fillStyle = this.color;
+        hCtx.beginPath();
+        hCtx.moveTo(0, -8);
+        hCtx.bezierCurveTo(-12, -18, -20, -4, 0, 8);
+        hCtx.bezierCurveTo(20, -4, 12, -18, 0, -8);
+        hCtx.fill();
+        hCtx.restore();
+    }
+}
+
+for (let i = 0; i < 20; i++) {
+    const h = new Heart();
+    h.y = Math.random() * hCanvas.height;
+    hearts.push(h);
+}
+
+function animateHearts() {
+    hCtx.clearRect(0, 0, hCanvas.width, hCanvas.height);
+    hearts.forEach(h => { h.update(); h.draw(); });
+    requestAnimationFrame(animateHearts);
+}
+animateHearts();
 
 const fCanvas = document.getElementById('fireworksCanvas');
 const fCtx = fCanvas.getContext('2d');
